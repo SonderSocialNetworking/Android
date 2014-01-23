@@ -78,13 +78,12 @@
         <!-- Register Button -->
         <Button
             android:id="@+id/registerButton"
-            <!-- style="?android:attr/borderlessButtonStyle" -->
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="50dp"
-            android:ems="6"
             android:text="@string/register_here" />
 
     </LinearLayout>
