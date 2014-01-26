@@ -14,15 +14,21 @@
         <activity
             android:name=".Feed"
             android:label="@string/title_activity_feed" >
+            
+        </activity>
+        <activity 
+            android:name=".LogIn"
+            android:theme="@style/SonderTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            
         </activity>
-        <activity 
-            android:name=".LogIn"
-            android:theme="@style/SonderTheme" >
+        <activity
+            android:name=".Register"
+            android:theme="@style/SonderTheme">
             
         </activity>
     </application>
