@@ -8,12 +8,9 @@
 package com.g08.sonder;
 
 public final class R {
-<<<<<<< HEAD
     public static final class array {
         public static final int sliding_drawer_items=0x7f050000;
     }
-=======
->>>>>>> ecedcf37f1c6731bad9e79641cc15f5f9f476e5f
     public static final class attr {
     }
     public static final class drawable {
@@ -22,7 +19,6 @@ public final class R {
         public static final int login_gradient=0x7f020002;
     }
     public static final class id {
-<<<<<<< HEAD
         public static final int Body=0x7f080004;
         public static final int Names=0x7f08000a;
         public static final int RelativeLayout1=0x7f080001;
@@ -45,43 +41,17 @@ public final class R {
         public static final int radio_male=0x7f08000e;
         public static final int registerButton=0x7f080008;
         public static final int signInButton=0x7f080007;
-=======
-        public static final int Body=0x7f070003;
-        public static final int Names=0x7f070009;
-        public static final int RelativeLayout1=0x7f070000;
-        public static final int ScrollView1=0x7f070008;
-        public static final int birth_date=0x7f070010;
-        public static final int confirmEmailField=0x7f07000c;
-        public static final int dates=0x7f07000f;
-        public static final int emailField=0x7f070004;
-        public static final int firstNameField=0x7f07000a;
-        public static final int footer=0x7f070002;
-        public static final int header=0x7f070001;
-        public static final int lastNameField=0x7f07000b;
-        public static final int menu_settings=0x7f070011;
-        public static final int passwordField=0x7f070005;
-        public static final int radio_female=0x7f07000e;
-        public static final int radio_male=0x7f07000d;
-        public static final int registerButton=0x7f070007;
-        public static final int signInButton=0x7f070006;
->>>>>>> ecedcf37f1c6731bad9e79641cc15f5f9f476e5f
     }
     public static final class layout {
         public static final int activity_feed=0x7f030000;
         public static final int activity_login=0x7f030001;
         public static final int activity_register=0x7f030002;
-<<<<<<< HEAD
         public static final int anonymous_fragment=0x7f030003;
         public static final int profile_fragment=0x7f030004;
         public static final int proximity_fragment=0x7f030005;
     }
     public static final class menu {
         public static final int activity_feed=0x7f070000;
-=======
-    }
-    public static final class menu {
-        public static final int activity_feed=0x7f060000;
->>>>>>> ecedcf37f1c6731bad9e79641cc15f5f9f476e5f
     }
     public static final class string {
         public static final int app_name=0x7f040000;
@@ -102,12 +72,7 @@ public final class R {
         public static final int title_activity_feed=0x7f040003;
     }
     public static final class style {
-<<<<<<< HEAD
         public static final int AppTheme=0x7f060001;
         public static final int SonderTheme=0x7f060000;
-=======
-        public static final int AppTheme=0x7f050001;
-        public static final int SonderTheme=0x7f050000;
->>>>>>> ecedcf37f1c6731bad9e79641cc15f5f9f476e5f
     }
 }

@@ -1,10 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-<<<<<<< HEAD
     <style name="SonderTheme" parent="android:style/Theme.Holo.Light">
-=======
-    <style name="SonderTheme" parent="android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
->>>>>>> ecedcf37f1c6731bad9e79641cc15f5f9f476e5f
         
         
         </style>
