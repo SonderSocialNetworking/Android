@@ -16,6 +16,7 @@
     <string name="female_prompt">Female</string>
     <string name="birthday_prompt">Birthday</string>
     <string name="date_format">MM/DD/YYYY</string>
+<<<<<<< HEAD
     <string-array name="sliding_drawer_items">
         <item>Profile</item>
         <item>People Feed</item>
@@ -23,5 +24,7 @@
         <item>Messages</item>
         <item>Settings</item>
     </string-array>
+=======
+>>>>>>> ecedcf37f1c6731bad9e79641cc15f5f9f476e5f
 
 </resources>
