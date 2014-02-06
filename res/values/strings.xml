@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="app_name">Sonder</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_feed">Feed</string>
+    <string name="email_prompt">Email</string>
+    <string name="password_prompt">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="register_here">Don\'t have an account? Sign Up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_email_prompt">Re-enter Email</string>
+    <string name="register_button">Sign Up</string>
+    <string name="male_prompt">Male</string>
+    <string name="female_prompt">Female</string>
+    <string name="birthday_prompt">Birthday</string>
+    <string name="date_format">MM/DD/YYYY</string>
+    <string-array name="sliding_drawer_items">
+        <item>Profile</item>
+        <item>People Feed</item>
+        <item>Anonymous Feed</item>
+        <item>Messages</item>
+        <item>Settings</item>
+    </string-array>
+
+</resources>
