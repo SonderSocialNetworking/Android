@@ -8,14 +8,16 @@ import android.view.View;
 //import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Button;
+import android.widget.EditText;
+
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
-
 import com.parse.ParseUser;
 import com.parse.ParseObject;
 import com.parse.SignUpCallback;
 import com.parse.SaveCallback;
+
 import android.util.Log;
 
 public class Register extends Activity {
@@ -25,14 +27,28 @@ public class Register extends Activity {
         setContentView(R.layout.activity_register);
         
         //ParseObject.registerSubclass(ParseObject.class);
+        final EditText firstName = (EditText) findViewById(R.id.firstNameField);
+        final EditText lastName = (EditText) findViewById(R.id.lastNameField);
+        //final EditText lastName = (EditText) findViewById(R.id.);
+        final EditText email = (EditText) findViewById(R.id.emailField);                                  
+        final EditText emailCheck = (EditText) findViewById(R.id.confirmEmailField);
+        final EditText password = (EditText) findViewById(R.id.passwordField);
+        final EditText birthday = (EditText) findViewById(R.id.birth_date);
+        boolean male;
+        
+        
         
         final Button signIn = (Button) findViewById(R.id.signInButton);
         signIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
             	//Log.v("1","DEBUG1");
-            	final ParseObject user = new ParseObject("User");
-            	user.put("name", "UsersName");
+            	ParseObject user = new ParseObject("Users");
+            	user.put("name",firstName.getText() + " " + lastName.getText());;
+            	user.put("email",  email.getText().toString());
+            	user.put("password", password.getText().toString());
+            	user.put("birthday",  birthday.getText().toString());
+            	//user.put("email" , email.getText());
             	//Log.v("1","DEBUG2");
             	//user.setUsername("my name");
             	///user.setPassword("my pass");
@@ -44,7 +60,7 @@ public class Register extends Activity {
             	user.saveInBackground(new SaveCallback() {
             	  public void done(ParseException e) {
             	    if (e == null) {
-            	    	Log.v("1","User Added");
+            	    	Log.v("1","User " +  "Added");
             	    	// Hooray! Let them use the app now.
             	    } else {
             	    	//Log.v("1","DEBUG5");
@@ -80,11 +96,21 @@ public class Register extends Activity {
 	    switch(view.getId()) {
 	        case R.id.radio_male:
 	            if (checked)
+	            {
+	            	//male = true;
+	            	Log.v("1",String.valueOf(findViewById(R.id.radio_male).isActivated()));
+	            	Log.v("1",String.valueOf(findViewById(R.id.radio_female).isActivated()));
+
+	            }
 	                
 	            break;
 	        case R.id.radio_female:
 	            if (checked)
-	                
+	            {
+	            	Log.v("1",String.valueOf(findViewById(R.id.radio_male).isActivated()));
+	            	Log.v("1",String.valueOf(findViewById(R.id.radio_female).isActivated()));
+	            	//male = false;
+	            }
 	            break;
 	    }
 	    
