@@ -29,7 +29,6 @@ public class Profile extends Activity {
 		friendsCheckBox = (CheckBox) findViewById(R.id.friendCheckBox);
 		isFriendCheckBox();
 		
-		bioButton= (Button) findViewById(R.id.bio_button);
 		profileFriendsListButton =(Button) findViewById(R.id.FriendsList);
 		profilePostsButton =(Button) findViewById(R.id.PostsButton);
 		sendMessageButton = (Button) findViewById(R.id.sendMessage);
