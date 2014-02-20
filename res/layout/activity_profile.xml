@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ProfileActivityUsername"
         android:layout_marginTop="37dp"
-        android:layout_toLeftOf="@+id/myMessages"
+        android:layout_toLeftOf="@id/myMessages"
         android:layout_toRightOf="@+id/ProfileActivityPhoto"
         android:text="@string/Profile_school" />
 
@@ -45,23 +45,23 @@
         android:id="@+id/ProfileAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ProfileSchool"
-        android:layout_alignLeft="@+id/myMessages"
+        android:layout_alignBottom="@id/ProfileSchool"
+        android:layout_alignLeft="@id/myMessages"
         android:text="@string/Profile_age" />
 
     <TextView
         android:id="@+id/ProfileActivityUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ProfileActivityPhoto"
-        android:layout_toRightOf="@+id/ProfileActivityPhoto"
+        android:layout_alignTop="@id/ProfileActivityPhoto"
+        android:layout_toRightOf="@id/ProfileActivityPhoto"
         android:maxLines="1"
         android:singleLine="true"
         android:text="@string/username_text_view"
         android:textSize="20sp" />
 
     <ImageView
-        android:id="@+id/ProfileActivityPhoto"
+        android:id="@id/ProfileActivityPhoto"
         android:layout_width="150dip"
         android:layout_height="120dip"
         android:layout_alignParentTop="true"
@@ -75,8 +75,8 @@
         android:id="@+id/FriendsList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/myMessages"
-        android:layout_alignBottom="@+id/myMessages"
+        android:layout_alignBaseline="@id/myMessages"
+        android:layout_alignBottom="@id/myMessages"
         android:layout_centerHorizontal="true"
         android:minHeight="0dp"
         android:minWidth="0dp"
@@ -84,11 +84,11 @@
         android:textSize="12sp" />
 
     <CheckBox
-        android:id="@+id/friendCheckBox"
+        android:id="@id/friendCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ProfileActivityPhoto"
-        android:layout_alignRight="@+id/ProfileAge"
+        android:layout_alignBottom="@id/ProfileActivityPhoto"
+        android:layout_alignRight="@id/ProfileAge"
         android:text="@string/addfriend_checkBox" />
 
     <TextView
@@ -96,8 +96,8 @@
         android:layout_width="wrap_content"
         android:layout_height="60dip"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/myMessages"
-        android:layout_below="@+id/ProfileActivityPhoto"
+        android:layout_alignRight="@id/myMessages"
+        android:layout_below="@id/ProfileActivityPhoto"
         android:text="@string/bio_textview"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -106,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/post"
-        android:layout_below="@+id/post"
+        android:layout_below="@id/post"
         android:ems="50"
         android:inputType="textMultiLine" />
 
@@ -115,18 +115,18 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/makePostText"
-        android:layout_toRightOf="@+id/friendCheckBox"
+        android:layout_below="@id/makePostText"
+        android:layout_toRightOf="@id/friendCheckBox"
         android:minHeight="0dp"
         android:minWidth="0dp"
         android:text="@string/message_button" />
 
     <TextView
-        android:id="@+id/post"
+        android:id="@id/post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ProfileBio"
-        android:layout_below="@+id/ProfileBio"
+        android:layout_alignLeft="@id/ProfileBio"
+        android:layout_below="@id/ProfileBio"
         android:layout_marginTop="14dp"
         android:text="@string/make_post" />
 

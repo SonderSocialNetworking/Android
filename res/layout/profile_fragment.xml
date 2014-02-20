@@ -3,8 +3,16 @@
     android:id="@+id/prof"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="#00FF00">
+    android:orientation="vertical" >
+    
+     <Button
+        android:id="@+id/fullProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:text="@string/to_full_profile"
+        /> 
     
 
 </LinearLayout>

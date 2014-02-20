@@ -39,6 +39,11 @@
             android:theme="@style/SonderTheme">
             
         </activity>
+        <activity 
+            android:name=".Profile"
+            android:theme="@style/SonderTheme">
+            
+        </activity>
     </application>
 
 </manifest>

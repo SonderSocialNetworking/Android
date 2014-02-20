@@ -43,5 +43,6 @@
     <string name="my_messages">messages</string>
     <string name="Profile_school">School</string>
     <string name="Profile_age">Age</string>
+    <string name="to_full_profile">Full Profile</string>
 
 </resources>
