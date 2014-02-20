@@ -26,7 +26,8 @@ ActionBar.TabListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-        Parse.initialize(this, "TWvYrlz5jTRkPrrjr4JohuDbR4zEXBc7pPWga4de", "9X3NEa7J3ve8GZ56MuGvINtIGKNOQUSeWzmzSaI4");
+        Parse.initialize(this, "TWvYrlz5jTRkPrrjr4JohuDbR4zEXBc7pPWga4de", "P68SafB5lfpav8NXScXnttVRGorpcbINDvoz1aY0");
+        
  
         // Initilization
         viewPager = (ViewPager) findViewById(R.id.pager);

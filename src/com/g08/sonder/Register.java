@@ -85,6 +85,9 @@ public class Register extends Activity {
             	  String radiovalue=  ((RadioButton) findViewById(rg.getCheckedRadioButtonId())).getText().toString(); 
             	
             	user.put("Gender", radiovalue);
+            	user.put("School", "UCSB");
+            	user.put("Age", "18-23");
+            	
             	// other fields can be set just like with ParseObject
             	//user.put("phone", "650-555-0000");
             	
