@@ -2,6 +2,7 @@ package com.g08.sonder;
 
 import com.g08.sonder.adapter.TabAdapter;
 import com.parse.Parse;
+import com.parse.ParseUser;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -28,6 +29,8 @@ ActionBar.TabListener{
         setContentView(R.layout.activity_feed);
         Parse.initialize(this, "TWvYrlz5jTRkPrrjr4JohuDbR4zEXBc7pPWga4de", "P68SafB5lfpav8NXScXnttVRGorpcbINDvoz1aY0");
         
+        ParseUser curUser = ParseUser.getCurrentUser();
+        GPSTracker gps = new GPSTracker(getApplicationContext());
  
         // Initilization
         viewPager = (ViewPager) findViewById(R.id.pager);

@@ -1,3 +1,4 @@
+
 package com.g08.sonder;
 
 import android.os.Bundle;
@@ -87,6 +88,9 @@ public class Register extends Activity {
             	user.put("Gender", radiovalue);
             	user.put("School", "UCSB");
             	user.put("Age", "18-23");
+            	
+            	//Location loc = null;
+            	//user.put("Gps", loc);
             	
             	// other fields can be set just like with ParseObject
             	//user.put("phone", "650-555-0000");
