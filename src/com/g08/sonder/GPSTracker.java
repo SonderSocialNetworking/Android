@@ -19,6 +19,9 @@ import android.util.Log;
 
 public class GPSTracker extends Service implements LocationListener {
 
+	/*
+	 * The Context/Activity in which the GPStracker is running
+	 */
     private final Context mContext;
 
     // flag for GPS status
@@ -48,6 +51,10 @@ public class GPSTracker extends Service implements LocationListener {
         getLocation();
     }
 
+
+    /*
+     * Updates the GPSTracker with the User's location
+     */
     public Location getLocation() {
         try {
             locationManager = (LocationManager) mContext
@@ -182,13 +189,16 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.show();
     }
 
+    /*
+     * This function is automatically exectuted when the GPSTracker detectst that it has changed location
+     */
     @Override
     public void onLocationChanged(Location location) {
     	ParseUser curUser = ParseUser.getCurrentUser();
     	 if(canGetLocation()){
          	double xCoor = getLatitude();
          	double yCoor = getLongitude();
-         	ParseGeoPoint loc = new ParseGeoPoint(5,10);
+         	ParseGeoPoint loc = new ParseGeoPoint(xCoor,yCoor);
          	//ParseGeoPoint loc = new ParseGeoPoint(xCoor,yCoor);
          	//Log.v("1","Got Location:" + loc);
          	//curUser.put("location", loc);
@@ -201,14 +211,28 @@ public class GPSTracker extends Service implements LocationListener {
     	Log.v("1","Location Changed");
     }
 
+    /*
+     * Runs when the GPSTracker's Provider has been disabled
+     * (non-Javadoc)
+     * @see android.location.LocationListener#onProviderDisabled(java.lang.String)
+     */
     @Override
     public void onProviderDisabled(String provider) {
     }
-
+    /*
+     * Runs when the GPSTracker's Provider has been enabled
+     * (non-Javadoc)
+     * @see android.location.LocationListener#onProviderDisabled(java.lang.String)
+     */
     @Override
     public void onProviderEnabled(String provider) {
     }
 
+    /*
+     * Runs when the status of the GPS tracker has been chaned (provider etc)
+     * (non-Javadoc)
+     * @see android.location.LocationListener#onStatusChanged(java.lang.String, int, android.os.Bundle)
+     */
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
