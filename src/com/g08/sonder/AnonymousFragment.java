@@ -44,8 +44,14 @@ public class AnonymousFragment extends Fragment {
     	GPSTracker gps = new GPSTracker(getActivity());
         View rootView = inflater.inflate(R.layout.anonymous_fragment, container, false);
         ParseUser curUser = ParseUser.getCurrentUser();
-        ParseGeoPoint loc = new ParseGeoPoint(5,10);
-        //ParseGeoPoint loc = (ParseGeoPoint) curUser.get("location");
+        //ParseGeoPoint loc = new ParseGeoPoint(5,10);
+        ParseGeoPoint loc = (ParseGeoPoint) curUser.get("location");
+        if(loc == null)
+        {
+        	loc = new ParseGeoPoint(0,0);
+        	curUser.put("location", loc);
+        	curUser.saveInBackground();
+        }
         Log.v("1", "Long:" + loc.getLongitude() + ":Lat:" + loc.getLatitude() + ":\n");
         ParseQuery<ParseUser> query =  ParseUser.getQuery();
 

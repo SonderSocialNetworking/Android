@@ -35,9 +35,9 @@ public class LogIn extends Activity {
             	EditText pass = (EditText) findViewById(R.id.passwordField);
             	String password =pass.getText().toString();
         		
-            	ParseUser.logInInBackground("email@gmail.com", "pword", new LogInCallback() {
+            	//ParseUser.logInInBackground("email@gmail.com", "pword", new LogInCallback() {
             		//NOTE THAT ABOVE LINE CHANGED FOR CONVENIENCE
-        		//ParseUser.logInInBackground(emailVal, password, new LogInCallback() {
+        		ParseUser.logInInBackground(emailVal, password, new LogInCallback() {
         			  public void done(ParseUser user, ParseException e) {
         			    if (user != null) {
         			      // Hooray! The user is logged in.
