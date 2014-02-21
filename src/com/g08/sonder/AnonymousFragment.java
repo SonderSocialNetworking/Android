@@ -53,8 +53,14 @@ public class AnonymousFragment extends Fragment {
     	GPSTracker gps = new GPSTracker(getActivity());
         View rootView = inflater.inflate(R.layout.anonymous_fragment, container, false);
         ParseUser curUser = ParseUser.getCurrentUser();
-        ParseGeoPoint loc = new ParseGeoPoint(5,10);
-        //ParseGeoPoint loc = (ParseGeoPoint) curUser.get("location");
+        //ParseGeoPoint loc = new ParseGeoPoint(5,10);
+        ParseGeoPoint loc = (ParseGeoPoint) curUser.get("location");
+        if(loc == null)
+        {
+        	loc = new ParseGeoPoint(0,0);
+        	curUser.put("location", loc);
+        	curUser.saveInBackground();
+        }
         Log.v("1", "Long:" + loc.getLongitude() + ":Lat:" + loc.getLatitude() + ":\n");
         ParseQuery<ParseUser> query =  ParseUser.getQuery();
 
@@ -102,7 +108,12 @@ public class AnonymousFragment extends Fragment {
 
         return rootView;
     }
-    //users is the desired amount of users
+    /*
+     * Generates a list of up nearby users
+     * ParseQuery<ParseUser> query - The query object that will be used to search the ParseUsers
+     * int miles - The max number of miles range to search for users
+     * int users - The max number of users to try to find
+     */
     public void getNearby(ParseQuery<ParseUser> query, int miles, int users)//run the first time with the max distance looking to explore over
     {
     	//query.include("location");
@@ -119,23 +130,6 @@ public class AnonymousFragment extends Fragment {
 			e.printStackTrace();
 			Log.v("1",e.getMessage());
 		}
-        /*
-        	query.findInBackground(new FindCallback<ParseUser>() {
-                public void done(List<ParseUser> objects, ParseException e) {
-                    if (e == null) {
-                        Log.v("1","Found " + objects.size() + " matches");
-
-                        saveNearby(objects);
-                        printNearby();
-
-                    } else {
-                    	Log.v("1","Error finding matches");
-                    	Log.v("1",e.getMessage());
-                    }
-                }
-            });
-            */
-
 
 
     }
