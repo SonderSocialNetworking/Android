@@ -188,6 +188,7 @@ public class GPSTracker extends Service implements LocationListener {
     	 if(canGetLocation()){
          	double xCoor = getLatitude();
          	double yCoor = getLongitude();
+         	ParseGeoPoint loc = new ParseGeoPoint(5,10);
          	//ParseGeoPoint loc = new ParseGeoPoint(xCoor,yCoor);
          	//Log.v("1","Got Location:" + loc);
          	//curUser.put("location", loc);
