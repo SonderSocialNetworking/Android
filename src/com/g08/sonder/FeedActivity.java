@@ -8,17 +8,12 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.parse.ParseGeoPoint;
 
 public class FeedActivity extends FragmentActivity implements
 ActionBar.TabListener{
@@ -28,18 +23,18 @@ ActionBar.TabListener{
     // Tab titles
     private String[] tabs = { "Anonymous", "People", "Profile" };
 
+    /*
+     * Runs when the FeedActivity is started
+     * Signs in user and generates GPS information with GPSTracker
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         Parse.initialize(this, "TWvYrlz5jTRkPrrjr4JohuDbR4zEXBc7pPWga4de", "P68SafB5lfpav8NXScXnttVRGorpcbINDvoz1aY0");
 
-        //this we be run as soon as the user is logged in
-
-
         ParseUser curUser = ParseUser.getCurrentUser();
         GPSTracker gps = new GPSTracker(getApplicationContext());
-
 
         // Initilization
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -56,19 +51,25 @@ ActionBar.TabListener{
                     .setTabListener(this));
         }
 }
-
+    /*
+     * Operations to perform when the user reselects a tab
+     */
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 
 	}
-
+	/*
+     * Operations to perform when the user selects a tab initially
+     */
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
 		viewPager.setCurrentItem(tab.getPosition());
 
 	}
-
+	/*
+	 * Operations to perfom when the tag is deselected by the user
+	 */
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
