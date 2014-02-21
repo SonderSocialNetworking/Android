@@ -61,12 +61,13 @@
         android:text="@string/username_text_view"
         android:textSize="20sp" />
 
-    <ImageView
+    <ImageButton
         android:id="@id/ProfileActivityPhoto"
+        style="?android:attr/borderlessButtonStyle"
+        android:visibility="visible"
         android:layout_width="150dip"
         android:layout_height="120dip"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/friendCheckBox"
         android:contentDescription="@string/user_profile_image"
         android:gravity="center_vertical"
         android:scaleType="fitCenter"
