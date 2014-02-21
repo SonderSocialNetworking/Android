@@ -20,19 +20,31 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.os.AsyncTask;
 
 
 public class AnonymousFragment extends Fragment {
-
-	public List<ParseUser> nearby;//list of the nearby user nodes, the preferred size can be set below
-	//The max number of users we are willing to look for; will moderate the size of the feed
+	/*
+	 * List of the nearby user nodes, the preferred size can be set below
+	 */
+	public List<ParseUser> nearby;
+	/*
+	 * The max number of users we are willing to look for; will moderate the size of the feed
+	 */
 	public final int maxNearby = 50;
-	//The max radius we are willing to check for maxNearby users
+	/*
+	 * The max radius we are willing to check for maxNearby users
+	 */
 	public final int maxRadius = 250;
+	/*
+	 * Run when the AnonymousFragment Object is created (each time you switch to the Anonymous Fragment tab)
+	 */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -41,7 +53,8 @@ public class AnonymousFragment extends Fragment {
     	GPSTracker gps = new GPSTracker(getActivity());
         View rootView = inflater.inflate(R.layout.anonymous_fragment, container, false);
         ParseUser curUser = ParseUser.getCurrentUser();
-        ParseGeoPoint loc = (ParseGeoPoint) curUser.get("location");
+        ParseGeoPoint loc = new ParseGeoPoint(5,10);
+        //ParseGeoPoint loc = (ParseGeoPoint) curUser.get("location");
         Log.v("1", "Long:" + loc.getLongitude() + ":Lat:" + loc.getLatitude() + ":\n");
         ParseQuery<ParseUser> query =  ParseUser.getQuery();
 
@@ -56,7 +69,32 @@ public class AnonymousFragment extends Fragment {
         //Here the up to maxNearby User objects are stored in the list 'nearby'
         //Now just display their names and messages
 
+        LinearLayout anonLayout = (LinearLayout) rootView.findViewById(R.id.anon1);
 
+        for(ParseUser person: nearby)
+        {
+        	String sonder;
+
+        	TextView view = new TextView(getActivity());
+        	Object resulting = person.get("AnonPost");
+        	if(resulting == null)
+        	{
+        		sonder = "User hasn't made a post";
+        	}
+        	else
+        	{
+        		sonder = person.get("AnonPost").toString();
+        		if(sonder == null)
+        			sonder = "User hasn't made a post";
+        	}
+        	view.setText('"' + sonder + '"');
+        	view.setMinimumHeight(200);
+        	view.setTextSize(20);
+        	view.setPadding(20, 0, 0, 20);
+        	view.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        	view.setBackgroundResource(R.drawable.border_ui);
+        	anonLayout.addView(view);
+        }
 
 
 
@@ -101,14 +139,20 @@ public class AnonymousFragment extends Fragment {
 
 
     }
+    /*
+     * Saves all generated nearby users to the List nearby
+     */
+
     public void saveNearby(List<ParseUser> objects)
     {
     	nearby = objects;
     }
-
+    /*
+     * Prints all nearby users which have been stored in the List Nearby
+     */
     public void printNearby()
     {
-    	Log.v("2","Printing the" + nearby.size() + " nearby users");
+    	Log.v("2","Printing the" + " " + nearby.size() + " nearby users to " + ParseUser.getCurrentUser().get("location").toString());
     	for(int i = 0; i < nearby.size();i++)
     	{
     		Log.v("2","Name:" + (String)nearby.get(i).getUsername() + " Post:" + (String)nearby.get(i).get("AnonPost"));
@@ -116,6 +160,10 @@ public class AnonymousFragment extends Fragment {
     	}
 
     }
+    /*
+     * Generated an number(amount) of ParseUsers
+     * ParseUsers each have a random int username, password = pword, and a random location
+     */
     public void generateGPSUsers(int amount)
     {
     	for(int i = 0; i < amount;i++)
