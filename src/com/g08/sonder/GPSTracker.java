@@ -1,5 +1,6 @@
 package com.g08.sonder;
 
+import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 
@@ -188,9 +189,18 @@ public class GPSTracker extends Service implements LocationListener {
     	 if(canGetLocation()){
          	double xCoor = getLatitude();
          	double yCoor = getLongitude();
-         	//ParseGeoPoint loc = new ParseGeoPoint(xCoor,yCoor);
-         	//Log.v("1","Got Location:" + loc);
-         	//curUser.put("location", loc);
+         	//ParseGeoPoint loc = new ParseGeoPoint(5,10);
+         	ParseGeoPoint loc = new ParseGeoPoint(xCoor,yCoor);
+         	Log.v("1","Got Location:" + loc);
+         	curUser.put("location", loc);
+         	curUser.saveInBackground();
+         	try {
+				curUser.refresh();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+         	
          }
          else
          {
