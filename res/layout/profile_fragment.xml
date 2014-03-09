@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,44 +10,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Profile" >
 
-    <Button
-        android:id="@+id/myMessages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="@string/my_messages"
-        android:textSize="12sp" />
-
-    <Button
-        android:id="@+id/SondersButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="@string/profilePosts_button"
-        android:textSize="12sp" />
-
     <TextView
         android:id="@+id/ProfileSchool"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ProfileActivityUsername"
         android:layout_marginTop="37dp"
-        android:layout_toLeftOf="@id/myMessages"
         android:layout_toRightOf="@+id/ProfileActivityPhoto"
         android:text="@string/Profile_school" />
-
-    <TextView
-        android:id="@+id/ProfileAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ProfileSchool"
-        android:layout_alignLeft="@id/myMessages"
-        android:text="@string/Profile_age" />
 
     <TextView
         android:id="@+id/ProfileActivityUsername"
@@ -64,34 +33,20 @@
     <ImageButton
         android:id="@id/ProfileActivityPhoto"
         style="?android:attr/borderlessButtonStyle"
-        android:visibility="visible"
         android:layout_width="150dip"
         android:layout_height="120dip"
         android:layout_alignParentTop="true"
         android:contentDescription="@string/user_profile_image"
         android:gravity="center_vertical"
         android:scaleType="fitCenter"
-        android:src="@drawable/blank_person" />
-
-    <Button
-        android:id="@+id/FriendsList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/myMessages"
-        android:layout_alignBottom="@id/myMessages"
-        android:layout_centerHorizontal="true"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="@string/profileFriends_button"
-        android:textSize="12sp" />
-
+        android:src="@drawable/blank_person"
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/ProfileBio"
         android:layout_width="wrap_content"
         android:layout_height="60dip"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@id/myMessages"
         android:layout_below="@id/ProfileActivityPhoto"
         android:text="@string/bio_textview"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -125,5 +80,22 @@
         android:layout_marginTop="14dp"
         android:text="@string/make_post" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/ProfileAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ProfileSchool"
+        android:layout_alignBottom="@+id/ProfileSchool"
+        android:layout_alignRight="@+id/ProfileActivityUsername"
+        android:text="@string/Profile_age" />
 
+    <Button
+        android:id="@+id/editProfileButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/editProfile" />
+
+</RelativeLayout>
