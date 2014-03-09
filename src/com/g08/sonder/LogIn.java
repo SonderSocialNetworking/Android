@@ -42,11 +42,7 @@ public class LogIn extends Activity {
             	//grab the password from the text field
             	EditText pass = (EditText) findViewById(R.id.passwordField);
             	String password =pass.getText().toString();
-<<<<<<< HEAD
-        		
-=======
 
->>>>>>> master
             	//ParseUser.logInInBackground("email@gmail.com", "pword", new LogInCallback() {
             		//NOTE THAT ABOVE LINE CHANGED FOR CONVENIENCE
         		ParseUser.logInInBackground(emailVal, password, new LogInCallback() {
