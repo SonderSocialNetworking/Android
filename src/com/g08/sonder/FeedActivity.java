@@ -22,6 +22,13 @@ ActionBar.TabListener{
     private ActionBar actionBar;
     // Tab titles
     private String[] tabs = { "Anonymous", "People", "Profile" };
+    static GPSTracker gps;
+    
+    
+    public static GPSTracker getGPS()
+    {
+    	return gps;
+    }
 
     /*
      * Runs when the FeedActivity is started
@@ -34,7 +41,7 @@ ActionBar.TabListener{
         Parse.initialize(this, "TWvYrlz5jTRkPrrjr4JohuDbR4zEXBc7pPWga4de", "P68SafB5lfpav8NXScXnttVRGorpcbINDvoz1aY0");
 
         ParseUser curUser = ParseUser.getCurrentUser();
-        GPSTracker gps = new GPSTracker(getApplicationContext());
+        gps = new GPSTracker(getApplicationContext());
 
         // Initilization
         viewPager = (ViewPager) findViewById(R.id.pager);

@@ -93,6 +93,7 @@ public class Register extends Activity {
             	user.put("Gender", radiovalue);
             	user.put("School", "UCSB");
             	user.put("Age", "18-23");
+            	user.put("Bio", "No bio");
 
             	//Location loc = null;
             	//user.put("Gps", loc);

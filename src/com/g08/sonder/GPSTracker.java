@@ -20,6 +20,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 
+
 public class GPSTracker extends Service implements LocationListener {
 
 	/*
@@ -51,6 +52,7 @@ public class GPSTracker extends Service implements LocationListener {
 
     public GPSTracker(Context context) {
         this.mContext = context;
+        Log.v("1", "New GPS Tracker Created");
         //getLocation();
         //Ignore below warning; no need to cast the instance; we just want it to execute
         new getLocationTask().execute();//gets the location in the background
@@ -207,13 +209,16 @@ public class GPSTracker extends Service implements LocationListener {
 
     public class getLocationTask extends AsyncTask{
     	protected void doInBackground(){
-    		getLocation();
-    		Log.v("1","Done getting location in background");
+    		Log.v("1","RAN THE OTHER METHOD");
     	}
 
 		@Override
 		protected Object doInBackground(Object... params) {
 			// TODO Auto-generated method stub
+			
+			Log.v("1","Done getting location in background");
+			getLocation();
+			Log.v("1","Done getting location in background");
 			return null;
 		}
     }

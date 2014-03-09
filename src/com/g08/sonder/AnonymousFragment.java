@@ -50,11 +50,12 @@ public class AnonymousFragment extends Fragment {
             Bundle savedInstanceState) {
 
 
-    	GPSTracker gps = new GPSTracker(getActivity());
+    	Log. v("1", "Anonymous Fragment created");
+    	
         View rootView = inflater.inflate(R.layout.anonymous_fragment, container, false);
         ParseUser curUser = ParseUser.getCurrentUser();
 
-
+        GPSTracker gps = FeedActivity.getGPS();
         //ParseGeoPoint loc = new ParseGeoPoint(5,10);
         ParseGeoPoint loc = (ParseGeoPoint) curUser.get("location");
         Location userLocation = gps.getLocation();

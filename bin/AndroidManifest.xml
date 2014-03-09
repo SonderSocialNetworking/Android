@@ -32,6 +32,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.g08.sonder.EditProfile"
+            android:theme="@style/SonderTheme">
+            
+        </activity>
+        <activity
             android:name="com.g08.sonder.Register"
             android:theme="@style/SonderTheme" >
         </activity>
