@@ -37,21 +37,17 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.profile_fragment, container, false);
-        
-        
-		
-		Button profileFriendsListButton =(Button) rootView.findViewById(R.id.FriendsList);
-		Button profilePostsButton =(Button) rootView.findViewById(R.id.SondersButton);
-		Button sendMessageButton = (Button) rootView.findViewById(R.id.sendMessage);
+        View rootView = inflater.inflate(R.layout.profile_fragment, container, false);		
 		
 		//Access the TextViews by Id
 		TextView nameText = (TextView) rootView.findViewById(R.id.ProfileActivityUsername);
 		TextView schoolText = (TextView) rootView.findViewById(R.id.ProfileSchool);
 		TextView ageText = (TextView) rootView.findViewById(R.id.ProfileAge);
+		TextView bioText = (TextView) rootView.findViewById(R.id.ProfileBio);
 		
-		
-		//ParseUser user = ParseUser.getCurrentUser();
+		Button sendMessageButton = (Button) rootView.findViewById(R.id.sendMessage);//button to make post/send message depending on whose profile
+		Button editProfileButton =(Button) rootView.findViewById(R.id.editProfileButton);// button to allow user to edit information displayed
+
 		
 		//Convert the user's full name to a char array for use in the TextView
 		String userNameString = user.getString("FirstName") + " " + user.getString("LastName");
@@ -71,33 +67,25 @@ public class ProfileFragment extends Fragment {
 		
 		ageText.setText(ageArray, 0, age.length());
 		
+		//convert bio to char array nd display on profile
+		String bio = user.getString("Bio");
+		char[] bioArray = bio.toCharArray();
+		
+		bioText.setText(bioArray, 0, bio.length());
 		
 		
-		profileFriendsListButton = (Button) rootView.findViewById(R.id.FriendsList);
-		profileFriendsListButton.setOnClickListener(new OnClickListener(){
+		
+		
+		
+		editProfileButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				/*Intent fList = new Intent(v.getContext(), FriendsList.class);
-				startActivityForResult(fList,0);*/
-				
-				
+		        startActivity(new Intent(getActivity(), EditProfile.class));
 			}
 			
 		});
 		
-		/*profilePostsButton = (Button) rootView.findViewById(R.id.SondersButton);
-		profilePostsButton.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				 Intent intentMain = new Intent(getActivity() , 
-                         FeedActivity.class);
-				 Profile.this.startActivity(intentMain);
-				
-			}
-			
-		});*/
 		
 		//Get the imageButton for the profile Pic
 		final ImageButton profPic = (ImageButton) rootView.findViewById(R.id.ProfileActivityPhoto);
@@ -146,7 +134,6 @@ public class ProfileFragment extends Fragment {
 		textField.setHint(user.getString("AnonPost"));
 		
 		
-		sendMessageButton = (Button) rootView.findViewById(R.id.sendMessage);
 		sendMessageButton.setOnClickListener(new OnClickListener(){
 
 			@Override
