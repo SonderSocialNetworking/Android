@@ -157,7 +157,7 @@ public class AnonymousFragment extends Fragment {
     	{
     		ParseUser user = new ParseUser();
     		Random rand = new Random();
-    		ParseGeoPoint add = new ParseGeoPoint(rand.nextInt(4) + 3,rand.nextInt(4)+8);
+    		ParseGeoPoint add = new ParseGeoPoint(rand.nextDouble()*.007833 + 34.408997 ,(rand.nextDouble()*.010889 + 119.842325) * -1 );
     		user.setUsername("" + rand.nextInt(9999999));
     		user.setPassword("pword");
 
