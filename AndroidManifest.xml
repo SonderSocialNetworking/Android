@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.g08.sonder"
     android:versionCode="1"
@@ -6,29 +7,24 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="15" />
-        
-        //added manually
-        <uses-permission android:name="android.permission.INTERNET" />
-		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-		//am
-
+        //added manually
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+		//am
     <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/SonderTheme"
-        android:allowBackup="true" >
+        android:theme="@style/SonderTheme" >
         <activity
-            android:name=".FeedActivity"
+            android:name="com.g08.sonder.FeedActivity"
             android:label="@string/title_activity_feed"
             android:theme="@style/SonderTheme" >
-            
-            
         </activity>
-        <activity 
-            android:name=".LogIn"
+        <activity
+            android:name="com.g08.sonder.LogIn"
             android:theme="@style/SonderTheme" >
-            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,15 +32,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Register"
-            android:theme="@style/SonderTheme">
-            
+            android:name="com.g08.sonder.Register"
+            android:theme="@style/SonderTheme" >
         </activity>
-        <activity 
-            android:name=".Profile"
-            android:theme="@style/SonderTheme">
-            
+        <activity
+            android:name="com.g08.sonder.Profile"
+            android:theme="@style/SonderTheme" >
         </activity>
+        
     </application>
 
 </manifest>

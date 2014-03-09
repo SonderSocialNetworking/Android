@@ -30,12 +30,21 @@ import android.os.AsyncTask;
 
 
 public class AnonymousFragment extends Fragment {
-
-	public List<ParseUser> nearby;//list of the nearby user nodes, the preferred size can be set below
-	//The max number of users we are willing to look for; will moderate the size of the feed
+	/*
+	 * List of the nearby user nodes, the preferred size can be set below
+	 */
+	public List<ParseUser> nearby;
+	/*
+	 * The max number of users we are willing to look for; will moderate the size of the feed
+	 */
 	public final int maxNearby = 50;
-	//The max radius we are willing to check for maxNearby users
+	/*
+	 * The max radius we are willing to check for maxNearby users
+	 */
 	public final int maxRadius = 250;
+	/*
+	 * Run when the AnonymousFragment Object is created (each time you switch to the Anonymous Fragment tab)
+	 */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -44,8 +53,26 @@ public class AnonymousFragment extends Fragment {
     	GPSTracker gps = new GPSTracker(getActivity());
         View rootView = inflater.inflate(R.layout.anonymous_fragment, container, false);
         ParseUser curUser = ParseUser.getCurrentUser();
+
+
         //ParseGeoPoint loc = new ParseGeoPoint(5,10);
         ParseGeoPoint loc = (ParseGeoPoint) curUser.get("location");
+        Location userLocation = gps.getLocation();
+        //if(curUser.get("locationX") != gps.getLatitude() || curUser.get("locationY") != gps.getLatitude()))
+        //{
+
+
+        	//NEEDDS FIXING
+        	//and below, jjust outside of check
+
+        if(loc == null)
+        {
+        	loc = new ParseGeoPoint(gps.getLatitude(), gps.getLongitude());
+        	curUser.put("location", loc);
+        	curUser.put("locationX", gps.getLatitude());
+        	curUser.put("locationY", gps.getLongitude());
+        	curUser.saveInBackground();
+        }
         Log.v("1", "Long:" + loc.getLongitude() + ":Lat:" + loc.getLatitude() + ":\n");
         ParseQuery<ParseUser> query =  ParseUser.getQuery();
 
@@ -61,11 +88,11 @@ public class AnonymousFragment extends Fragment {
         //Now just display their names and messages
 
         LinearLayout anonLayout = (LinearLayout) rootView.findViewById(R.id.anon1);
-        
+
         for(ParseUser person: nearby)
         {
         	String sonder;
-        	
+
         	TextView view = new TextView(getActivity());
         	Object resulting = person.get("AnonPost");
         	if(resulting == null)
@@ -93,7 +120,12 @@ public class AnonymousFragment extends Fragment {
 
         return rootView;
     }
-    //users is the desired amount of users
+    /*
+     * Generates a list of up nearby users
+     * ParseQuery<ParseUser> query - The query object that will be used to search the ParseUsers
+     * int miles - The max number of miles range to search for users
+     * int users - The max number of users to try to find
+     */
     public void getNearby(ParseQuery<ParseUser> query, int miles, int users)//run the first time with the max distance looking to explore over
     {
     	//query.include("location");
@@ -110,31 +142,20 @@ public class AnonymousFragment extends Fragment {
 			e.printStackTrace();
 			Log.v("1",e.getMessage());
 		}
-        /*
-        	query.findInBackground(new FindCallback<ParseUser>() {
-                public void done(List<ParseUser> objects, ParseException e) {
-                    if (e == null) {
-                        Log.v("1","Found " + objects.size() + " matches");
-
-                        saveNearby(objects);
-                        printNearby();
-
-                    } else {
-                    	Log.v("1","Error finding matches");
-                    	Log.v("1",e.getMessage());
-                    }
-                }
-            });
-            */
-
 
 
     }
+    /*
+     * Saves all generated nearby users to the List nearby
+     */
+
     public void saveNearby(List<ParseUser> objects)
     {
     	nearby = objects;
     }
-
+    /*
+     * Prints all nearby users which have been stored in the List Nearby
+     */
     public void printNearby()
     {
     	Log.v("2","Printing the" + " " + nearby.size() + " nearby users to " + ParseUser.getCurrentUser().get("location").toString());
@@ -145,18 +166,30 @@ public class AnonymousFragment extends Fragment {
     	}
 
     }
+    /*
+     * Generated an number(amount) of ParseUsers
+     * ParseUsers each have a random int username, password = pword, and a random location
+     */
     public void generateGPSUsers(int amount)
     {
     	for(int i = 0; i < amount;i++)
     	{
     		ParseUser user = new ParseUser();
     		Random rand = new Random();
-    		ParseGeoPoint add = new ParseGeoPoint(rand.nextInt(4) + 3,rand.nextInt(4)+8);
+
+
+
+    		//current GPS location: Decimal Minutes (GPS) : N34	25.24985  W119 41.89139
+    		double x = (2 * rand.nextDouble()) + 33;
+    		double y = (2 * rand.nextDouble()) + 118;
+    		ParseGeoPoint add = new ParseGeoPoint(x,y);
     		user.setUsername("" + rand.nextInt(9999999));
     		user.setPassword("pword");
 
 
     		user.put("location", add);
+    		user.put("locationX", x);
+    		user.put("locationY", y);
     		user.signUpInBackground(new SignUpCallback() {
       		  public void done(ParseException e) {
       		    if (e == null) {
