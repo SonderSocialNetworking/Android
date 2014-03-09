@@ -1,3 +1,4 @@
+	
 package com.g08.sonder;
 
 import com.parse.ParseGeoPoint;
@@ -12,10 +13,12 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
+
 
 public class GPSTracker extends Service implements LocationListener {
 
@@ -38,17 +41,23 @@ public class GPSTracker extends Service implements LocationListener {
     double longitude; // longitude
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 5 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 15; // 15 seconds
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
     public GPSTracker(Context context) {
         this.mContext = context;
-        getLocation();
+        //getLocation();
+        //Ignore below warning; no need to cast the instance; we just want it to execute
+        new getLocationTask().execute();//gets the location in the background
+
+        //need to set location in getLocation>?
+
+
     }
 
 
@@ -85,6 +94,11 @@ public class GPSTracker extends Service implements LocationListener {
                         if (location != null) {
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
+
+
+
+
+
                         }
                     }
                 }
@@ -189,6 +203,23 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.show();
     }
 
+
+
+    public class getLocationTask extends AsyncTask{
+    	protected void doInBackground(){
+    		getLocation();
+    		Log.v("1","Done getting location in background");
+    	}
+
+		@Override
+		protected Object doInBackground(Object... params) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+    }
+
+
+
     /*
      * This function is automatically exectuted when the GPSTracker detectst that it has changed location
      */
@@ -196,12 +227,22 @@ public class GPSTracker extends Service implements LocationListener {
     public void onLocationChanged(Location location) {
     	ParseUser curUser = ParseUser.getCurrentUser();
     	 if(canGetLocation()){
+    		Log.v("1", "Xbefore:" + curUser.get("locationX") + ":Ybefore:" + curUser.get("locationY"));
          	double xCoor = getLatitude();
          	double yCoor = getLongitude();
          	ParseGeoPoint loc = new ParseGeoPoint(xCoor,yCoor);
          	//ParseGeoPoint loc = new ParseGeoPoint(xCoor,yCoor);
          	//Log.v("1","Got Location:" + loc);
          	//curUser.put("location", loc);
+
+
+         	//PUT THE LOCATION!!!!
+         	//Save the seperate coordinates in ad
+         	curUser.put("location", loc);//Stores the ParseGeoPoint for functions
+         	curUser.put("locationX", xCoor);
+         	curUser.put("locationY", yCoor);
+         	Log.v("1","Put the values:" + xCoor + "&" + yCoor);
+
          }
          else
          {
@@ -209,6 +250,7 @@ public class GPSTracker extends Service implements LocationListener {
          }
 
     	Log.v("1","Location Changed");
+    	Log.v("1", "Xafter:" + curUser.get("locationX") + ":Yafter:" + curUser.get("locationY"));
     }
 
     /*
@@ -243,113 +285,3 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
 }
-
-/*
-import android.app.Activity;
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.os.Bundle;
-import android.widget.Toast;
-import android.location.Criteria;
-import android.location.Address;
-import android.location.Geocoder;
-import android.widget.TextView;
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
-
-
-
-
-*/
-
-
-/*
-
-public class GPSTracker extends Activity {
-
-	//The minimum distance to change Updates in meters
-		private static final long MIN_DISTANCE_CHANGE_FOR_UPDATE = 20;
-
-	//The minimum time between updates
-		private static final long MIN_TIME_BW_UPDATES = (100 * 60 * 5); // 5 minutes
-	//current location
-		private Location loc;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.activity_feed);
-
-		LocationManager locationmanager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-
-		//Criteria determines which provider is the best to use in the user's circumstances
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		criteria.setPowerRequirement(Criteria.POWER_LOW);
-		criteria.setAltitudeRequired(false);
-		criteria.setBearingRequired(false);
-		criteria.setSpeedRequired(false);
-		criteria.setCostAllowed(true);
-		String provider = locationmanager.getBestProvider(criteria, true);
-
-		Location recent_location = locationmanager.getLastKnownLocation(provider);
-//		LocationListener locationlistener = new MyLocationListener();
-
-		updateWithNewLocation(recent_location);
-
-		locationmanager.requestLocationUpdates(provider,MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATE, locationListener);
-		}
-
-	void updateWithNewLocation(Location location) {
-			TextView myLocationText = null;
-			//myLocationText = (TextView)findViewById(R.id.myLocationText);
-
-			String addressString;
-			if (location != null) {
-			double latitude = location.getLatitude();     //returns latitude
-			double longitude = location.getLongitude();   //returns longitude
-
-
-			//Geocoder will translate longitude and latitude into address form
-			Geocoder gc = new Geocoder(this, Locale.getDefault());
-
-			try {
-				List<Address> addresses = gc.getFromLocation(latitude, longitude, 1);
-				StringBuilder sb = new StringBuilder();
-				if (addresses.size() > 0) {
-				Address address = addresses.get(0);
-
-				for (int i = 0; i < address.getMaxAddressLineIndex(); i++)
-					sb.append(address.getAddressLine(i)).append("\n");
-
-		//appends city name, zipcode, country, disabled for now
-//		          sb.append(address.getLocality()).append("\n");
-//	          	  sb.append(address.getPostalCode()).append("\n");
-	//	          sb.append(address.getCountryName());
-				}
-				addressString = sb.toString();
-				myLocationText.setText("Your Current Position is:\n" + addressString);
-			} catch (IOException exception) {}
-			}
-			//test output
-
-		}
-
-		private final LocationListener locationListener = new LocationListener() {
-			public void onLocationChanged(Location location) {
-			updateWithNewLocation(location); }
-
-			@Override
-			public void onProviderDisabled(String provider) {}
-
-			@Override
-			public void onProviderEnabled(String provider) {}
-
-			@Override
-			public void onStatusChanged(String provider, int status, Bundle extras) {}
-		};
-}*/
