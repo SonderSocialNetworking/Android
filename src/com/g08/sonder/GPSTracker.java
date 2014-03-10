@@ -216,10 +216,9 @@ public class GPSTracker extends Service implements LocationListener {
 		@Override
 		protected Object doInBackground(Object... params) {
 			// TODO Auto-generated method stub
-			
-			Log.v("1","Done getting location in background");
+
 			getLocation();
-			Log.v("1","Done getting location in background");
+			Log.v("1","Done getting location in background,=" + location);
 			return null;
 		}
     }
@@ -252,16 +251,18 @@ public class GPSTracker extends Service implements LocationListener {
 			curUser.saveInBackground(new SaveCallback() {
 				   public void done(com.parse.ParseException e) {
 				     if (e == null) {
-		
-				       
-				       
-				       
+				    	 Log.v("1","Location saved after location change");
+
+
+
 				     } else {
-				    	 
+				    	 Log.v("1","Error while saving in background from location change");
+				    	 e.printStackTrace();
+
 				     }
 				   }
 
-				
+
 				 });
 
          }

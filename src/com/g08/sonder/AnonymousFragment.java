@@ -42,7 +42,7 @@ public class AnonymousFragment extends Fragment {
 	/*
 	 * The max radius we are willing to check for maxNearby users
 	 */
-	public final double maxRadius = 1;
+	public final double maxRadius = 5;
 	/*
 	 * Run when the AnonymousFragment Object is created (each time you switch to the Anonymous Fragment tab)
 	 */
@@ -51,40 +51,42 @@ public class AnonymousFragment extends Fragment {
             Bundle savedInstanceState) {
 
 
-    	Log. v("1", "Anonymous Fragment created");
-    	
+    	Log.v("1", "Anonymous Fragment created");
+    	//Log.v("1", "Generating 50 GPS users");
+    	//generateGPSUsers(50);
+
+
         View rootView = inflater.inflate(R.layout.anonymous_fragment, container, false);
         ParseUser curUser = ParseUser.getCurrentUser();
-
-        GPSTracker gps = FeedActivity.getGPS();
+        Log.v("1","DEBUG1");
+        GPSTracker gps = new GPSTracker(getActivity());
+        Log.v("1","DEBUG2");
         //ParseGeoPoint loc = new ParseGeoPoint(5,10);
         ParseGeoPoint loc = (ParseGeoPoint) curUser.get("location");
         Location userLocation = gps.getLocation();
-        //if(curUser.get("locationX") != gps.getLatitude() || curUser.get("locationY") != gps.getLatitude()))
-        //{
+        Log.v("1", "Xinit:" + curUser.get("locationX") + ":Yinit:" + curUser.get("locationX"));
 
 
-        	//NEEDDS FIXING
-        	//and below, jjust outside of check
 
-        if(loc == null)
-        {
+
+
         	loc = new ParseGeoPoint(gps.getLatitude(), gps.getLongitude());
         	curUser.put("location", loc);
         	curUser.put("locationX", gps.getLatitude());
         	curUser.put("locationY", gps.getLongitude());
+        	Log.v("1", "Saving user data in background");
         	curUser.saveInBackground();
-        }
-        Log.v("1", "Long:" + loc.getLongitude() + ":Lat:" + loc.getLatitude() + ":\n");
+
+
         ParseQuery<ParseUser> query =  ParseUser.getQuery();
 
-        double radius = .0005;
+        double radius = .05;
         do
         {
-        	getNearby(query, radius,maxNearby);
+        	getNearby(query, radius, maxNearby);
         	radius *= 2;
         }while(radius < maxRadius && nearby.size() < maxNearby);
-
+        Log.v("1", "Long:" + loc.getLongitude() + ":Lat:" + loc.getLatitude() + ":\n");
         printNearby();
         //Here the up to maxNearby User objects are stored in the list 'nearby'
         //Now just display their names and messages
@@ -107,8 +109,15 @@ public class AnonymousFragment extends Fragment {
         		if(sonder == null)
         			sonder = "User hasn't made a post";
         	}
-        	Log.v("2",sonder);
-        	view.setText('"' + sonder + '"');
+        	double x = person.getDouble("locationX");
+        	double y = person.getDouble("locationY");
+        	double a = ParseUser.getCurrentUser().getDouble("locationX");
+        	double b = ParseUser.getCurrentUser().getDouble("locationY");
+        	double z = Math.pow(Math.pow(a-x,2) + Math.pow(b-y, 2),.5);
+
+
+        	//Log.v("2",sonder);
+        	view.setText(sonder + " :Dist:" + z);
         	view.setMinimumHeight(200);
         	view.setTextSize(20);
         	view.setPadding(20, 0, 0, 20);
@@ -142,6 +151,7 @@ public class AnonymousFragment extends Fragment {
 			nearby = query.find();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
+			Log.v("1","getNearby throws an exception");
 			e.printStackTrace();
 			Log.v("1",e.getMessage());
 		}
@@ -182,17 +192,19 @@ public class AnonymousFragment extends Fragment {
 
 
 
-    		//current GPS location: Decimal Minutes (GPS) : N34	25.24985  W119 41.89139
-    		double x = (2 * rand.nextDouble()) + 33;
-    		double y = (2 * rand.nextDouble()) + 118;
+    		//current GPS location: Decimal Minutes (GPS) : N34	25.24985  W-119 41.89139
+    		double x = (.01 * rand.nextDouble()) + 34.409;
+    		double y = (.01 * rand.nextDouble()) - 119.8423;
     		ParseGeoPoint add = new ParseGeoPoint(x,y);
-    		user.setUsername("" + rand.nextInt(9999999));
+    		int z = rand.nextInt(9999999);
+    		user.setUsername("" + z);
     		user.setPassword("pword");
 
 
     		user.put("location", add);
     		user.put("locationX", x);
     		user.put("locationY", y);
+    		user.put("AnonPost", "My username is:" + z);
     		user.signUpInBackground(new SignUpCallback() {
       		  public void done(ParseException e) {
       		    if (e == null) {
