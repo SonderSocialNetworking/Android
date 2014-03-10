@@ -3,6 +3,7 @@ package com.g08.sonder;
 
 import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import android.location.LocationManager;
 import android.app.AlertDialog;
@@ -247,6 +248,21 @@ public class GPSTracker extends Service implements LocationListener {
          	curUser.put("locationX", xCoor);
          	curUser.put("locationY", yCoor);
          	Log.v("1","Put the values:" + xCoor + "&" + yCoor);
+
+			curUser.saveInBackground(new SaveCallback() {
+				   public void done(com.parse.ParseException e) {
+				     if (e == null) {
+		
+				       
+				       
+				       
+				     } else {
+				    	 
+				     }
+				   }
+
+				
+				 });
 
          }
          else

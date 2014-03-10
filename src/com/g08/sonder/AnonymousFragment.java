@@ -42,7 +42,7 @@ public class AnonymousFragment extends Fragment {
 	/*
 	 * The max radius we are willing to check for maxNearby users
 	 */
-	public final int maxRadius = 250;
+	public final double maxRadius = 1;
 	/*
 	 * Run when the AnonymousFragment Object is created (each time you switch to the Anonymous Fragment tab)
 	 */
@@ -78,7 +78,7 @@ public class AnonymousFragment extends Fragment {
         Log.v("1", "Long:" + loc.getLongitude() + ":Lat:" + loc.getLatitude() + ":\n");
         ParseQuery<ParseUser> query =  ParseUser.getQuery();
 
-        int radius = 1;
+        double radius = .0005;
         do
         {
         	getNearby(query, radius,maxNearby);
@@ -107,6 +107,7 @@ public class AnonymousFragment extends Fragment {
         		if(sonder == null)
         			sonder = "User hasn't made a post";
         	}
+        	Log.v("2",sonder);
         	view.setText('"' + sonder + '"');
         	view.setMinimumHeight(200);
         	view.setTextSize(20);
@@ -128,7 +129,7 @@ public class AnonymousFragment extends Fragment {
      * int miles - The max number of miles range to search for users
      * int users - The max number of users to try to find
      */
-    public void getNearby(ParseQuery<ParseUser> query, int miles, int users)//run the first time with the max distance looking to explore over
+    public void getNearby(ParseQuery<ParseUser> query, double miles, int users)//run the first time with the max distance looking to explore over
     {
     	//query.include("location");
         //query.whereNear("location", loc);
