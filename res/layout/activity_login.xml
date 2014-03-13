@@ -4,7 +4,9 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/abstract_blue"
+    >
 
     <!-- Header Section -->
     <RelativeLayout
@@ -37,6 +39,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@id/header"
+        
         >
 
         <!-- Email Field -->
@@ -49,7 +52,8 @@
             android:layout_marginRight="25dp"
             android:ems="10"
             android:hint="@string/email_prompt"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress" 
+            android:textColor="#FFF"/>
 
         <EditText
             android:id="@+id/passwordField"
@@ -60,7 +64,8 @@
             android:layout_marginBottom="34dp"
             android:ems="10"
             android:hint="@string/password_prompt"
-            android:inputType="textPassword" >
+            android:inputType="textPassword" 
+            android:textColor="#FFF">
 
             
         </EditText>
@@ -73,7 +78,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:text="@string/log_in" />
+            android:textColor="#FFF"
+            android:text="@string/log_in"
+             />
         
         <!-- Register Button -->
         <Button
@@ -84,7 +91,9 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="50dp"
-            android:text="@string/register_here" />
+            android:textColor="#FFF"
+            android:text="@string/register_here" 
+            />
 
     </LinearLayout>
 

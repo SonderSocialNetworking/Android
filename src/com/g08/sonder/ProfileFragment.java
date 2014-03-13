@@ -206,7 +206,9 @@ public class ProfileFragment extends Fragment {
     	            Bitmap profSelectedImage = BitmapFactory.decodeFile(filePath);
     	            
     	            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    	            profSelectedImage.compress(Bitmap.CompressFormat.JPEG, 20, stream);
+    	            
+    	            Bitmap smaller = Bitmap.createScaledBitmap(profSelectedImage, 400, 400, false);
+    	            smaller.compress(Bitmap.CompressFormat.JPEG, 20, stream);
     	            byte[] data = stream.toByteArray();
     	            
     	            ParseFile picFile = new ParseFile(data);

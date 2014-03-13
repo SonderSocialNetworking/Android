@@ -16,6 +16,7 @@ import com.parse.gdata.*;
 import com.parse.*;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.os.AsyncTask;
@@ -42,7 +44,7 @@ public class AnonymousFragment extends Fragment {
 	/*
 	 * The max radius we are willing to check for maxNearby users
 	 */
-	public final double maxRadius = 5;
+	public final double maxRadius = 1;
 	/*
 	 * Run when the AnonymousFragment Object is created (each time you switch to the Anonymous Fragment tab)
 	 */
@@ -80,7 +82,7 @@ public class AnonymousFragment extends Fragment {
 
         ParseQuery<ParseUser> query =  ParseUser.getQuery();
 
-        double radius = .05;
+        double radius = .2;
         do
         {
         	getNearby(query, radius, maxNearby);
@@ -92,6 +94,9 @@ public class AnonymousFragment extends Fragment {
         //Now just display their names and messages
 
         LinearLayout anonLayout = (LinearLayout) rootView.findViewById(R.id.anon1);
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        llp.setMargins(10, 20, 10, 120); // llp.setMargins(left, top, right, bottom);
+        
 
         for(ParseUser person: nearby)
         {
@@ -117,12 +122,16 @@ public class AnonymousFragment extends Fragment {
 
 
         	//Log.v("2",sonder);
-        	view.setText(sonder + " :Dist:" + z);
-        	view.setMinimumHeight(200);
+        	
+        	view.setText('"' + sonder + '"');
+        	view.setMinimumHeight(50);
         	view.setTextSize(20);
-        	view.setPadding(20, 0, 0, 20);
+        	view.setLayoutParams(llp);
+        	//view.setPadding(10, 20, 20, 10);
+        	
         	view.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        	view.setBackgroundResource(R.drawable.border_ui);
+        	view.setBackgroundResource(R.drawable.card_bg);
+        	
         	anonLayout.addView(view);
         }
 
@@ -145,7 +154,7 @@ public class AnonymousFragment extends Fragment {
         query.whereWithinMiles("location", (ParseGeoPoint)ParseUser.getCurrentUser().get("location"), miles);
         query.setLimit(users);//The number of entries get
         query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
-        //generateGPSUsers(1);
+        //generateGPSUsers(20);
 
         try {
 			nearby = query.find();
@@ -194,7 +203,7 @@ public class AnonymousFragment extends Fragment {
 
     		//current GPS location: Decimal Minutes (GPS) : N34	25.24985  W-119 41.89139
     		double x = (.01 * rand.nextDouble()) + 34.409;
-    		double y = (.01 * rand.nextDouble()) - 119.8423;
+    		double y = -1 * ((.029 * rand.nextDouble()) + 119.84046);
     		ParseGeoPoint add = new ParseGeoPoint(x,y);
     		int z = rand.nextInt(9999999);
     		user.setUsername("" + z);

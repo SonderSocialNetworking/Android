@@ -1,6 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="SonderTheme" parent="android:style/Theme.Holo.Light">
+    <style name="SonderTheme" parent="android:style/Theme.Holo.Light.DarkActionBar">
         
         
         </style>
