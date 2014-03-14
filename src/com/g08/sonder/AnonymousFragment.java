@@ -24,6 +24,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.os.AsyncTask;
@@ -45,10 +47,22 @@ public class AnonymousFragment extends Fragment {
         //ParseGeoPoint loc = (ParseGeoPoint) curUser.get("location");
        // Log.v("1", "Long:" + loc.getLongitude() + ":Lat:" + loc.getLatitude() + ":\n");
 
-
     	act = (FeedActivity)getActivity();
 
         anonLayout = (LinearLayout) rootView.findViewById(R.id.anon1);
+        
+        
+        
+        Button refresh = (Button) rootView.findViewById(R.id.refresh);
+        anonLayout.addView(refresh);
+        
+        refresh.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				updateScreen();
+			}
+			
+		});
 
         return rootView;
     }
@@ -58,6 +72,7 @@ public class AnonymousFragment extends Fragment {
     	if(isVisible())
     	{
     		Log.v("1","AF resumed & visible so updating screen");
+    		act.updateNearby();
         	updateScreen();
     	}
     	Log.v("1", "AF 'resumed' but not visible, did not update screen");
@@ -69,7 +84,7 @@ public class AnonymousFragment extends Fragment {
 		Log.v("1","Updating PF, " + act.getNearby().size() + " users nearby");
         for(ParseUser person: act.getNearby())
         {
-        	anonLayout.removeViewAt(0);//Psoe, idea is that views are as in a list, so can keep removing first element
+        	anonLayout.removeViewAt(1);//Psoe, idea is that views are as in a list, so can keep removing first element
         	//and then append onee, causing a cycling effect
 
         	TextView view = new TextView(getActivity());

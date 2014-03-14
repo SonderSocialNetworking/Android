@@ -47,6 +47,7 @@
     <string name="to_full_profile">Full Profile</string>
     <string name= "editbio">Edit Bio</string>
     <string name= "SaveChanges">Save</string>
+    <string name = "Refresh">Refresh</string>
     
 
 </resources>

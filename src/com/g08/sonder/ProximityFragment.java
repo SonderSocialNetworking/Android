@@ -15,6 +15,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,6 +38,18 @@ public class ProximityFragment extends Fragment {
 
             act = (FeedActivity)getActivity();//Basically gets the feedactivty running the fragment
             proxLayout = (LinearLayout) rootView.findViewById(R.id.prox);
+            
+            Button refresh = (Button) rootView.findViewById(R.id.refresh);
+            proxLayout.addView(refresh);
+            
+            refresh.setOnClickListener(new OnClickListener(){
+    			@Override
+    			public void onClick(View v) {
+    				updateScreen();
+    			}
+    			
+    		});
+            
             return rootView;
         }
 
@@ -43,10 +57,11 @@ public class ProximityFragment extends Fragment {
         public void onResume() {
         	if(isVisible())
         	{
-        		Log.v("1","AF resumed & visible so updating screen");
+        		Log.v("1","PF resumed & visible so updating screen");
+        		act.updateNearby();
             	updateScreen();
         	}
-        	Log.v("1", "AF 'resumed' but not visible, did not update screen");
+        	Log.v("1", "PF 'resumed' but not visible, did not update screen");
         	super.onResume();
         };
         public void updateScreen()
@@ -54,7 +69,7 @@ public class ProximityFragment extends Fragment {
         	Log.v("1","Updating PF, " + act.getNearby().size() + " users nearby");
             for(ParseUser person: act.getNearby())
             {
-            	proxLayout.removeViewAt(0);//Psoe, idea is that views are as in a list, so can keep removing first element
+            	proxLayout.removeViewAt(1);//Psoe, idea is that views are as in a list, so can keep removing first element
             	//and then append onee, causing a cycling effect
 
             	TextView view = new TextView(getActivity());
