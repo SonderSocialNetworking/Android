@@ -1,6 +1,11 @@
 
 package com.g08.sonder;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -42,6 +47,8 @@ public class GPSTracker extends Service implements LocationListener {
     double latitude; // latitude
     double longitude; // longitude
 
+    boolean[] done = {false};
+
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 5 meters
 
@@ -51,7 +58,7 @@ public class GPSTracker extends Service implements LocationListener {
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
-    public GPSTracker(Context context) {
+    public GPSTracker(Context context, boolean[] run) {
         this.mContext = context;
         Log.v("1", "New GPS Tracker Created");
         //getLocation();
@@ -69,6 +76,7 @@ public class GPSTracker extends Service implements LocationListener {
      */
     public Location getLocation() {
         try {
+        	done[0] = false;
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);
 
@@ -97,7 +105,8 @@ public class GPSTracker extends Service implements LocationListener {
                         if (location != null) {
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
-
+                            done[0] = true;
+                            Log.v("1","Done with getLocation method");
 
 
 
@@ -105,7 +114,6 @@ public class GPSTracker extends Service implements LocationListener {
                         }
                     }
                 }
-                // if GPS Enabled get lat/long using GPS Services
                 if (isGPSEnabled) {
                     if (location == null) {
                         locationManager.requestLocationUpdates(
@@ -119,6 +127,8 @@ public class GPSTracker extends Service implements LocationListener {
                             if (location != null) {
                                 latitude = location.getLatitude();
                                 longitude = location.getLongitude();
+                                done[0] = true;
+                                Log.v("1","Done with getLocation method");
                             }
                         }
                     }
@@ -128,8 +138,28 @@ public class GPSTracker extends Service implements LocationListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return location;
+        ParseUser curUser = ParseUser.getCurrentUser();
+    	/*
+    	 * Going to save the users data here, needs to be done before update
+    	 * So may cause lag.
+    	 * Gps auto updates based on location, so may not need to save, or make optional
+    	 *
+    	 */
+		ParseGeoPoint loc = new ParseGeoPoint(getLatitude(), getLongitude());
+		curUser.put("location", loc);
+    	curUser.put("locationY", getLatitude());
+    	curUser.put("locationX", getLongitude());
+    	curUser.saveInBackground(new SaveCallback() {
+    		public void done(ParseException e) {
+    		     if (e == null) {
+    		       Log.v("1", "Gps location changed; gps successfully saved in background after moving");
+    		       Log.v("1","New Location = " + ":" + getLatitude() + ":" + getLongitude());
+    		     } else {
+    		    	 Log.v("1", "Gps location changed; gps had an error saving in background");
+    		    	 Log.v("1",e.getMessage());
+    		     }
+    		   }});
+        return location;//Can return location even if not done saving
     }
 
     /**
@@ -208,18 +238,43 @@ public class GPSTracker extends Service implements LocationListener {
 
 
 
-    public class getLocationTask extends AsyncTask{
+    public class getLocationTask extends AsyncTask<Void,Void,Boolean[]>{
     	protected void doInBackground(){
     		Log.v("1","RAN THE OTHER METHOD");
     	}
 
 		@Override
-		protected Object doInBackground(Object... params) {
+		protected Boolean[] doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			Location tempLoc = location;
+			getLocation();
+			int tries = 0;
+			while(!done[0])
+			{
+				tries++;
+				Log.v("1","Waited " + tries + "times for .25s for location to be returned in getLocationTask");
+				try {
+					this.get(250, TimeUnit.MILLISECONDS);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (TimeoutException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+			Boolean[] done = {true};
+			return done;
+		}
+		@Override
+		protected void onPostExecute(Boolean[] result) {
 			// TODO Auto-generated method stub
 
-			getLocation();
-			Log.v("1","Done getting location in background,=" + location);
-			return null;
+			super.onPostExecute(result);
 		}
     }
 
@@ -232,6 +287,12 @@ public class GPSTracker extends Service implements LocationListener {
     public void onLocationChanged(Location location) {
     	ParseUser curUser = ParseUser.getCurrentUser();
     	 if(canGetLocation()){
+
+    		 //PSOE
+    		 //getLocation();
+
+    		Log.v("1","User changing location");
+    		//done[0] = false;
     		Log.v("1", "Xbefore:" + curUser.get("locationX") + ":Ybefore:" + curUser.get("locationY"));
          	double xCoor = getLatitude();
          	double yCoor = getLongitude();

@@ -45,6 +45,10 @@ public class LogIn extends Activity {
 
             	//ParseUser.logInInBackground("email@gmail.com", "pword", new LogInCallback() {
             		//NOTE THAT ABOVE LINE CHANGED FOR CONVENIENCE
+            	emailVal = "email@gmail.com";
+            	password = "pword";
+
+
         		ParseUser.logInInBackground(emailVal, password, new LogInCallback() {
         			  public void done(ParseUser user, ParseException e) {
         			    if (user != null) {
