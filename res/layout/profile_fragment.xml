@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:windowSoftInputMode="adjustPan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top|center"
@@ -8,32 +9,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#40cccccc"
+	android:background="@drawable/login_gradient"
     tools:context=".Profile" >
-    
-
-    <TextView
-        android:id="@+id/ProfileSchool"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ProfileActivityUsername"
-        android:layout_marginTop="37dp"
-        android:layout_toRightOf="@+id/ProfileActivityPhoto"
-        android:text="@string/Profile_school" />
-
-    <TextView
-        android:id="@+id/ProfileActivityUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/ProfileActivityPhoto"
-        android:layout_toRightOf="@id/ProfileActivityPhoto"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="@string/username_text_view"
-        android:textSize="20sp" />
 
     <ImageButton
-        android:id="@id/ProfileActivityPhoto"
+        android:id="@+id/ProfileActivityPhoto"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="150dip"
         android:layout_height="120dip"
@@ -42,16 +22,9 @@
         android:gravity="center_vertical"
         android:scaleType="fitCenter"
         android:src="@drawable/blank_person"
-        android:visibility="visible" />
-
-    <TextView
-        android:id="@+id/ProfileBio"
-        android:layout_width="wrap_content"
-        android:layout_height="60dip"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/ProfileActivityPhoto"
-        android:text="@string/bio_textview"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:visibility="visible" 
+        android:background="@drawable/card_bgg"
+        />
 
     <EditText
         android:id="@+id/makePostText"
@@ -60,36 +33,9 @@
         android:layout_alignLeft="@+id/post"
         android:layout_below="@id/post"
         android:ems="50"
-        android:inputType="textMultiLine" />
-
-    <Button
-        android:id="@+id/sendMessage"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/makePostText"
-        android:layout_toRightOf="@id/friendCheckBox"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="@string/message_button" />
-
-    <TextView
-        android:id="@id/post"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/ProfileBio"
-        android:layout_below="@id/ProfileBio"
-        android:layout_marginTop="14dp"
-        android:text="@string/make_post" />
-
-    <TextView
-        android:id="@+id/ProfileAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ProfileSchool"
-        android:layout_alignBottom="@+id/ProfileSchool"
-        android:layout_alignRight="@+id/ProfileActivityUsername"
-        android:text="@string/Profile_age" />
+        android:inputType="textMultiLine" 
+                android:background="@drawable/card_bgg"
+        />
 
     <Button
         android:id="@+id/editProfileButton"
@@ -98,6 +44,82 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/editProfile" />
+        android:text="@string/editProfile"
+                android:background="@drawable/card_bgg"
+        
+        
+         />
 
+    <Button
+        android:id="@+id/sendMessage"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/makePostText"
+        android:layout_alignRight="@+id/makePostText"
+        android:layout_below="@+id/makePostText"
+        android:background="@drawable/card_bgg"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:text="@string/message_button" />
+
+    <TextView
+        android:id="@+id/ProfileActivityUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ProfileSchool"
+        android:layout_alignRight="@+id/ProfileBio"
+        android:layout_alignTop="@id/ProfileActivityPhoto"
+        android:background="@drawable/card_bgg"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="@string/username_text_view"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/ProfileSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/ProfileBio"
+        android:layout_below="@+id/ProfileActivityUsername"
+        android:layout_toRightOf="@id/ProfileActivityPhoto"
+        android:background="@drawable/card_bgg"
+        android:text="@string/Profile_school"
+        android:textSize="20sp" />
+    
+    <TextView
+        android:id="@+id/ProfileAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ProfileActivityPhoto"
+        android:layout_alignLeft="@+id/ProfileSchool"
+        android:layout_alignRight="@+id/ProfileBio"
+        android:layout_below="@+id/ProfileSchool"
+        android:background="@drawable/card_bgg"
+        android:text="@string/Profile_age"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/ProfileBio"
+        android:layout_width="wrap_content"
+        android:layout_height="60dip"
+        android:layout_alignLeft="@id/ProfileActivityPhoto"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/ProfileActivityPhoto"
+        android:background="@drawable/card_bgg"
+        android:text="@string/bio_textview"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@id/post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ProfileBio"
+        android:layout_alignRight="@+id/ProfileBio"
+        android:layout_centerVertical="true"
+        android:background="@drawable/card_bgg"
+        android:text="@string/make_post"
+        android:textSize="20sp" />
+
+    
 </RelativeLayout>

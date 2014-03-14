@@ -5,6 +5,7 @@ import com.parse.ParseUser;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,21 +32,34 @@ public class EditProfile extends Activity {
 
 				//change and add user first and last names
 		    	EditText newfirstName = (EditText) findViewById(R.id.firstNameField);
-		    	String first = newfirstName.getText().toString();
 		    	EditText newlastName = (EditText) findViewById(R.id.lastNameField);
-		    	String last = newlastName.getText().toString();
-		    	user.put("FirstName", first);
-		    	user.put("LastName", last);
+		    	String first = newfirstName.getText().toString();
+				String last = newlastName.getText().toString();
+		    	
+				if (!first.isEmpty() && !last.isEmpty())
+		    		{
+				    	
+		    			user.put("FirstName", first);
+		    			user.put("LastName", last);
+		    		}
+		    	
 		    	
 		    	//edit school
 		    	EditText newSchool = (EditText) findViewById(R.id.editSchool);
 		    	String school = newSchool.getText().toString();
-		    	user.put("School", school);
+		    	
+		    	if(!school.isEmpty())
+		    		user.put("School", school);
+		    	
+		    	//edit email
+		
 		    	
 		    	//edit bio
 		    	EditText userBio = (EditText) findViewById(R.id.bioEdit);
 		    	String bio = userBio.getText().toString();
-		    	user.put("Bio", bio);
+		    	
+		    	if(!bio.isEmpty())
+		    		user.put("Bio", bio);
 				
 				
 		        startActivity(new Intent(EditProfile.this, FeedActivity.class));

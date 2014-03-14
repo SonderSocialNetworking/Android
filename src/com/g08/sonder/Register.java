@@ -1,6 +1,8 @@
 
 package com.g08.sonder;
 
+import java.util.Calendar;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -24,6 +26,8 @@ import com.parse.SaveCallback;
 import android.util.Log;
 
 public class Register extends Activity {
+	
+	
 	/*
 	 * Runs when the Register Activity is started
 	 * (non-Javadoc)
@@ -84,15 +88,14 @@ public class Register extends Activity {
             	EditText birthday = (EditText) findViewById(R.id.birth_date);
             	String birth = birthday.getText().toString();
             	user.put("Birthday", birth);
-
-
+            	
+            	
             	//Radio selection
             	RadioGroup rg=(RadioGroup)findViewById(R.id.gender_group);
             	  String radiovalue=  ((RadioButton) findViewById(rg.getCheckedRadioButtonId())).getText().toString();
 
             	user.put("Gender", radiovalue);
             	user.put("School", "UCSB");
-            	user.put("Age", "18-23");
             	user.put("Bio", "No bio");
 
             	//Location loc = null;

@@ -3,6 +3,7 @@ package com.g08.sonder;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.Calendar;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -23,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -32,11 +34,32 @@ import android.widget.Toast;
  
 public class ProfileFragment extends Fragment {
 	ParseUser user = ParseUser.getCurrentUser();
+	
+	//method to getAge from birthdate string
+	private String getAge(int year, int month, int day){
+		    Calendar dob = Calendar.getInstance();
+		    Calendar today = Calendar.getInstance();
+
+		    dob.set(year, month, day); 
+
+		    int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+		    if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+		        age--; 
+		    }
+
+		    Integer ageInt = new Integer(age);
+		    String ageS = ageInt.toString();
+
+		    return ageS;  
+		}
  
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
+    	getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         View rootView = inflater.inflate(R.layout.profile_fragment, container, false);		
 		
 		//Access the TextViews by Id
@@ -61,10 +84,16 @@ public class ProfileFragment extends Fragment {
 		
 		schoolText.setText(schoolNameArray, 0, schoolName.length());
 		
-		//Convert user's age to a char array
-		String age = user.getString("Age");
-		char[] ageArray = age.toCharArray();
-		
+		// convert birthday string to ints, calculate age and set users age
+		int d = Integer.parseInt(user.getString("Birthday").substring(3, 5));
+    	int m = Integer.parseInt(user.getString("Birthday").substring(0, 2));
+    	int y = Integer.parseInt(user.getString("Birthday").substring(6, 10));
+    	user.put("Age", getAge(y,m,d));
+    	
+    	//Convert user's age to a char array
+    	String age = user.getString("Age");
+    	char[] ageArray = age.toCharArray();
+
 		ageText.setText(ageArray, 0, age.length());
 		
 		//convert bio to char array nd display on profile

@@ -43,7 +43,7 @@ public class LogIn extends Activity {
             	EditText pass = (EditText) findViewById(R.id.passwordField);
             	String password =pass.getText().toString();
 
-            	ParseUser.logInInBackground("jon@cs48.yes", "somuchgood", new LogInCallback() {
+            	ParseUser.logInInBackground(emailVal, password, new LogInCallback() {
             		//NOTE THAT ABOVE LINE CHANGED FOR CONVENIENCE
         		//ParseUser.logInInBackground(emailVal, password, new LogInCallback() {
         			  public void done(ParseUser user, ParseException e) {

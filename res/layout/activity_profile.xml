@@ -1,133 +1,68 @@
-<RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top|center"
+    android:gravity="top|left"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background = "@drawable/login_gradient"
     tools:context=".Profile" >
-
-    <Button
-        android:id="@+id/myMessages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="@string/my_messages"
-        android:textSize="12sp" />
-
-    <Button
-        android:id="@+id/SondersButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="@string/profilePosts_button"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/ProfileSchool"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ProfileActivityUsername"
-        android:layout_marginTop="37dp"
-        android:layout_toLeftOf="@id/myMessages"
-        android:layout_toRightOf="@+id/ProfileActivityPhoto"
-        android:text="@string/Profile_school" />
 
     <TextView
         android:id="@+id/ProfileAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ProfileSchool"
-        android:layout_alignLeft="@id/myMessages"
-        android:text="@string/Profile_age" />
+        android:layout_alignLeft="@+id/ProfileSchool"
+        android:layout_below="@+id/ProfileSchool"
+        android:layout_marginTop="20dp"
+        android:text="@string/Profile_age" 
+        android:textSize="20sp"/>
 
-    <TextView
-        android:id="@+id/ProfileActivityUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/ProfileActivityPhoto"
-        android:layout_toRightOf="@id/ProfileActivityPhoto"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="@string/username_text_view"
-        android:textSize="20sp" />
-
-    <ImageView
-        android:id="@id/ProfileActivityPhoto"
-        android:layout_width="150dip"
-        android:layout_height="120dip"
+    <ImageButton
+        android:id="@+id/ProfileActivityPhoto"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="180dip"
+        android:layout_height="150dip"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/friendCheckBox"
         android:contentDescription="@string/user_profile_image"
-        android:gravity="center_vertical"
+        android:gravity="top|left"
         android:scaleType="fitCenter"
-        android:src="@drawable/blank_person" />
-
-    <Button
-        android:id="@+id/FriendsList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/myMessages"
-        android:layout_alignBottom="@id/myMessages"
-        android:layout_centerHorizontal="true"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="@string/profileFriends_button"
-        android:textSize="12sp" />
-
-    <CheckBox
-        android:id="@id/friendCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ProfileActivityPhoto"
-        android:layout_alignRight="@id/ProfileAge"
-        android:text="@string/addfriend_checkBox" />
+        android:src="@drawable/blank_person"
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/ProfileBio"
         android:layout_width="wrap_content"
         android:layout_height="60dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@id/myMessages"
+        android:layout_alignLeft="@id/ProfileActivityPhoto"
+        android:layout_alignRight="@+id/ProfileActivityUsername"
         android:layout_below="@id/ProfileActivityPhoto"
+        android:layout_marginTop="40dp"
         android:text="@string/bio_textview"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/makePostText"
+    <TextView
+        android:id="@+id/ProfileSchool"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/post"
-        android:layout_below="@id/post"
-        android:ems="50"
-        android:inputType="textMultiLine" />
-
-    <Button
-        android:id="@+id/sendMessage"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/makePostText"
-        android:layout_toRightOf="@id/friendCheckBox"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="@string/message_button" />
+        android:layout_below="@+id/ProfileActivityUsername"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/ProfileActivityPhoto"
+        android:text="@string/Profile_school"
+        android:textSize="20sp" />
 
     <TextView
-        android:id="@id/post"
+        android:id="@+id/ProfileActivityUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/ProfileBio"
-        android:layout_below="@id/ProfileBio"
-        android:layout_marginTop="14dp"
-        android:text="@string/make_post" />
+        android:layout_alignTop="@+id/ProfileActivityPhoto"
+        android:layout_toRightOf="@+id/ProfileActivityPhoto"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="@string/username_text_view"
+        android:textSize="20sp" />
 
 </RelativeLayout>

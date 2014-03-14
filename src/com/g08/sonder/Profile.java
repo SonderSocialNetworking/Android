@@ -26,8 +26,7 @@ public class Profile extends Activity {
 	CheckBox friendsCheckBox;
 
 	Button bioButton;
-	Button profileFriendsListButton;
-	Button profilePostsButton;
+	
 	Button sendMessageButton;
 
 	//Get the current User
@@ -39,11 +38,8 @@ public class Profile extends Activity {
 		setContentView(R.layout.activity_profile);
 		Parse.initialize(this, "TWvYrlz5jTRkPrrjr4JohuDbR4zEXBc7pPWga4de", "P68SafB5lfpav8NXScXnttVRGorpcbINDvoz1aY0");
 
-		friendsCheckBox = (CheckBox) findViewById(R.id.friendCheckBox);
-		isFriendCheckBox();
-
-		profileFriendsListButton =(Button) findViewById(R.id.FriendsList);
-		profilePostsButton =(Button) findViewById(R.id.SondersButton);
+	
+		
 		sendMessageButton = (Button) findViewById(R.id.sendMessage);
 
 		//Access the TextViews by Id
@@ -73,31 +69,9 @@ public class Profile extends Activity {
 
 
 
-		profileFriendsListButton = (Button) findViewById(R.id.FriendsList);
-		profileFriendsListButton.setOnClickListener(new OnClickListener(){
 
-			@Override
-			public void onClick(View v) {
-				/*Intent fList = new Intent(v.getContext(), FriendsList.class);
-				startActivityForResult(fList,0);*/
-				ParseUser.logOut();
-
-			}
-
-		});
-
-		profilePostsButton = (Button) findViewById(R.id.SondersButton);
-		profilePostsButton.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				 Intent intentMain = new Intent(Profile.this ,
-                         FeedActivity.class);
-				 Profile.this.startActivity(intentMain);
-
-			}
-
-		});
+	
+	
 
 		sendMessageButton = (Button) findViewById(R.id.sendMessage);
 		sendMessageButton.setOnClickListener(new OnClickListener(){
@@ -137,18 +111,8 @@ public class Profile extends Activity {
 		});
 	}
 
-	private void isFriendCheckBox(){
-		friendsCheckBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
-
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				// TODO Auto-generated method stub
-
-			}
 
 
-		});
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
