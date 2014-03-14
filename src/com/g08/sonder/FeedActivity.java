@@ -42,7 +42,7 @@ ActionBar.TabListener{
     //Array pass by reference hack ;)
     boolean[] tracking = {false};//Lets us know that the gps tracker is updating
     boolean[] updating = {false};//Lets us know that the nearby list is updating
-    GPSTracker gps = new GPSTracker(this, tracking);
+    GPSTracker gps = new GPSTracker(this, updating);
     //List<ParseUser> nearby = new ArrayList<ParseUser>();
 
 
@@ -58,9 +58,30 @@ ActionBar.TabListener{
      */
     public boolean updateNearby()
     {
-    	//Should
+
+    	Log.v("1","Called update nearby");
     	updating[0] = true; //pass by reference :) Should let us know that the function is updating still, even outside of task
     	AsyncTask<Void, Void, Boolean[]> update = new updateTask().execute();
+    	int tries = 0;
+
+    	//TODO This is part of the crash reasons
+    	while(update.getStatus() != AsyncTask.Status.FINISHED && tries <= 10)
+    	{
+    		tries++;
+    		Log.v("1","Waiting .5s for update nearby; update task running");
+    		Log.v("1","Status of update task is:" + update.getStatus());
+    		try {
+
+    			Thread.sleep(500);
+    			Log.v("1","Waking up");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	Log.v("1","Update task done running, tries=" + tries);
+    	Log.v("1","Nearby contains:" + nearby.size()  + " users");
+
     	return true;//Supposed to indicate that everything is done
     }
     /*
@@ -74,6 +95,8 @@ ActionBar.TabListener{
     {
     	nearby = newNearby;//PSOE
     }
+
+
 
     /*
      * <parameters, progress, result>
@@ -90,7 +113,10 @@ ActionBar.TabListener{
   	    protected void onPostExecute(Boolean[] run/*Void... result*/) {
   			//run[0] = false;
   			//indicates that we are done running, pass by reference
+  			updating[0] = false;
   			super.onPostExecute(run);
+  			Log.v("1","Update Task done executing");
+
   	    }
 
 		@Override
@@ -100,30 +126,6 @@ ActionBar.TabListener{
 			//Will use save in foreground for this as user is waiting for update.
 			Log.v("1","Initializing an update");
 
-			/*
-	    	 * NOT Going to save the users data here, needs to be done before update
-	    	 * May lag if update here; necessary ?
-	    	 * Gps auto updates based on location, so optional to save
-	    	 *
-	    	 */
-			//ParseUser curUser = ParseUser.getCurrentUser();
-	    	/*
-			ParseGeoPoint loc = new ParseGeoPoint(gps.getLatitude(), gps.getLongitude());
-			curUser.put("location", loc);
-	    	curUser.put("locationX", gps.getLatitude());
-	    	curUser.put("locationY", gps.getLongitude());
-	    	Log.v("1", "Saving user data in foreground by update");
-	    	try {
-				curUser.save();
-				Log.v("1","Save in refresh successful");
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				Log.v("1","Save in refresh failed");
-			}
-			*///Save should be in the foreground
-
-	    	//Now need to update nearby
 	    	ParseQuery<ParseUser> query =  ParseUser.getQuery();
 	    	getNearby(query);//Sets up 'nearby' array
 	    	//The geotracker does NOT update nearby; to avoid problems accessing it if data has been inadvertantly changed.
@@ -140,13 +142,16 @@ ActionBar.TabListener{
 	    {
 	    	//query.include("location");
 	        //query.whereNear("location", loc);
-	        query.whereWithinMiles("location", (ParseGeoPoint)ParseUser.getCurrentUser().get("location"), maxRadius);
+	    	ParseGeoPoint location = new ParseGeoPoint(getGPS().getLatitude(),getGPS().getLongitude());
+	        query.whereWithinMiles("location", location, maxRadius);
 	        query.setLimit(maxNearby);//The number of entries get
 	        query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
 	        //generateGPSUsers(1);
 
 	        try {
 				nearby = query.find();//Sets the nearby vector to what we find
+				//Found in foreground!
+				Log.v("1","Updated the nearby vector");
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				Log.v("1","getNearby throws an exception");
@@ -182,8 +187,12 @@ ActionBar.TabListener{
 
 
     		//current GPS location: Decimal Minutes (GPS) : N34	25.24985  W-119 41.89139
+
     		double x = (.01 * rand.nextDouble()) + 34.409;
     		double y = (.01 * rand.nextDouble()) - 119.8423;
+    		//double x = (.01 * rand.nextDouble());
+    		//double y = (.01 * rand.nextDouble());
+
     		ParseGeoPoint add = new ParseGeoPoint(x,y);
     		int z = rand.nextInt(9999999);
     		user.setUsername("" + z);
@@ -253,6 +262,10 @@ ActionBar.TabListener{
             actionBar.addTab(actionBar.newTab().setText(tab_name)
                     .setTabListener(this));
         }
+        //Log.v("1","GENERATING 10 0,0 ish GPS USERS");
+        //generateGPSUsers(10);
+
+
 }
     /*
      * Operations to perform when the user reselects a tab
@@ -284,5 +297,3 @@ ActionBar.TabListener{
 
 
 }
-
-
