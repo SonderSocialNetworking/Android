@@ -95,7 +95,7 @@ public class Register extends Activity {
             	  String radiovalue=  ((RadioButton) findViewById(rg.getCheckedRadioButtonId())).getText().toString();
 
             	user.put("Gender", radiovalue);
-            	user.put("School", "UCSB");
+            	user.put("School", "No school");
             	user.put("Bio", "No bio");
 
             	//Location loc = null;
