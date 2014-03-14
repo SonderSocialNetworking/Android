@@ -43,10 +43,11 @@ public class ProximityFragment extends Fragment {
         public void onResume() {
         	if(isVisible())
         	{
-        		Log.v("1","AF resumed & visible so updating screen");
+        		Log.v("1","PF resumed & visible so updating screen");
+        		act.updateNearby();
             	updateScreen();
         	}
-        	Log.v("1", "AF 'resumed' but not visible, did not update screen");
+        	Log.v("1", "PF 'resumed' but not visible, did not update screen");
         	super.onResume();
         };
         public void updateScreen()
