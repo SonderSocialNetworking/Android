@@ -1,4 +1,3 @@
-
 package com.g08.sonder;
 
 import java.util.concurrent.ExecutionException;
@@ -63,7 +62,11 @@ public class GPSTracker extends Service implements LocationListener {
         Log.v("1", "New GPS Tracker Created");
         //getLocation();
         //Ignore below warning; no need to cast the instance; we just want it to execute
-        new getLocationTask().execute();//gets the location in the background
+
+
+
+
+        //new getLocationTask().execute();//gets the location in the background
 
         //need to set location in getLocation>?
 
@@ -90,6 +93,7 @@ public class GPSTracker extends Service implements LocationListener {
 
             if (!isGPSEnabled && !isNetworkEnabled) {
                 // no network provider is enabled
+            	done[0] = true;
             } else {
                 this.canGetLocation = true;
                 // First get location from Network Provider
@@ -106,7 +110,7 @@ public class GPSTracker extends Service implements LocationListener {
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
                             done[0] = true;
-                            Log.v("1","Done with getLocation method");
+                            Log.v("1","Done with getLocation method except saving");
 
 
 
@@ -154,6 +158,7 @@ public class GPSTracker extends Service implements LocationListener {
     		     if (e == null) {
     		       Log.v("1", "Gps location changed; gps successfully saved in background after moving");
     		       Log.v("1","New Location = " + ":" + getLatitude() + ":" + getLongitude());
+    		       done[0] = true;
     		     } else {
     		    	 Log.v("1", "Gps location changed; gps had an error saving in background");
     		    	 Log.v("1",e.getMessage());
@@ -249,12 +254,12 @@ public class GPSTracker extends Service implements LocationListener {
 			Location tempLoc = location;
 			getLocation();
 			int tries = 0;
-			while(!done[0])
+			while(!done[0] || tries > 10)
 			{
 				tries++;
-				Log.v("1","Waited " + tries + "times for .25s for location to be returned in getLocationTask");
+				Log.v("1","Waited " + tries + "times for .5s for location to be returned in getLocationTask");
 				try {
-					this.get(250, TimeUnit.MILLISECONDS);
+					this.get(500, TimeUnit.MILLISECONDS);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -266,6 +271,15 @@ public class GPSTracker extends Service implements LocationListener {
 					e.printStackTrace();
 				}
 
+
+			}
+			if(tries > 20)
+			{
+				Log.v("1","Took more than 10 tries, done trying to update in background");
+			}
+			else
+			{
+				Log.v("1","Took less than 10 tries, done trying to update in background");
 			}
 			Boolean[] done = {true};
 			return done;
@@ -368,4 +382,3 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
 }
-
