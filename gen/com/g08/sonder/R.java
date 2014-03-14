@@ -48,14 +48,14 @@ public final class R {
         public static final int RelativeLayout1=0x7f090000;
         public static final int Save=0x7f090009;
         public static final int ScrollView1=0x7f090016;
-        public static final int action_settings=0x7f090026;
+        public static final int action_settings=0x7f090025;
         public static final int anon1=0x7f09001d;
         public static final int anonScroll=0x7f09001c;
         public static final int bioEdit=0x7f090008;
         public static final int birth_date=0x7f09001b;
         public static final int confirmEmailField=0x7f090017;
         public static final int dates=0x7f090007;
-        public static final int editProfileButton=0x7f090021;
+        public static final int editProfileButton=0x7f090020;
         public static final int editSchool=0x7f090006;
         public static final int emailField=0x7f09000d;
         public static final int firstNameField=0x7f090004;
@@ -64,18 +64,17 @@ public final class R {
         public static final int gender_group=0x7f090018;
         public static final int header=0x7f09000c;
         public static final int lastNameField=0x7f090005;
-        public static final int makePostText=0x7f09001f;
-        public static final int menu_settings=0x7f090025;
+        public static final int makePostText=0x7f09001e;
+        public static final int menu_settings=0x7f090024;
         public static final int pager=0x7f09000a;
         public static final int passwordField=0x7f09000e;
-        public static final int post=0x7f090020;
-        public static final int prox=0x7f090024;
-        public static final int proxScroll=0x7f090023;
+        public static final int post=0x7f09001f;
+        public static final int prox=0x7f090023;
+        public static final int proxScroll=0x7f090022;
         public static final int radio_female=0x7f09001a;
         public static final int radio_male=0x7f090019;
-        public static final int refresh=0x7f09001e;
         public static final int registerButton=0x7f090010;
-        public static final int sendMessage=0x7f090022;
+        public static final int sendMessage=0x7f090021;
         public static final int signInButton=0x7f09000f;
     }
     public static final class layout {
