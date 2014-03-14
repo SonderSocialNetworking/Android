@@ -1,4 +1,3 @@
-
 package com.g08.sonder;
 import java.util.List;
 import java.util.Objects;
@@ -59,6 +58,7 @@ public class AnonymousFragment extends Fragment {
     	if(isVisible())
     	{
     		Log.v("1","AF resumed & visible so updating screen");
+    		act.updateNearby();
         	updateScreen();
     	}
     	Log.v("1", "AF 'resumed' but not visible, did not update screen");
